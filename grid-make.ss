@@ -1,11 +1,11 @@
 (define goal-node -1)
 (define free 0)
 (define frontier 1)
+(define visited 1)
 (define obstacle 100000)
 (define start '())
 (define goal '())
 (define robot '())
-(define visited 1)
 
 (define make-grid
   (lambda (num)

@@ -43,6 +43,20 @@
       ;else
           c))))
 
+(define stepf
+  (lambda (b c)
+    (let ((b-status (block-status b))
+          (c-status (block-status c))
+          (x-diff (abs (- (car b) (car c))))
+          (y-diff (abs (- (cadr b) (cadr c)))))
+      (if (or (= b-status obstacle)
+              (= c-status obstacle)
+              (= c-status free)
+              (not (= (+ x-diff y-diff) 1)))
+          #f
+      ;else
+          c))))
+
 (define step
   (lambda (b c)
     (let ((c-status (block-status c)))
@@ -55,6 +69,12 @@
   (lambda (block)
     (let* ((adj-lst0 (adjacent block))
            (adj-lst1 (map (lambda (z) (stepv block z)) adj-lst0)))
+      (remove-f adj-lst1))))
+
+(define adjacentf
+  (lambda (block)
+    (let* ((adj-lst0 (adjacent block))
+           (adj-lst1 (map (lambda (z) (stepf block z)) adj-lst0)))
       (remove-f adj-lst1))))
 
 (define remove-f
